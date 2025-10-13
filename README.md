@@ -68,3 +68,7 @@ OpenVoice V1 and V2 are MIT Licensed. Free for both commercial and research use.
 
 ## Acknowledgements
 This implementation is based on several excellent projects, [TTS](https://github.com/coqui-ai/TTS), [VITS](https://github.com/jaywalnut310/vits), and [VITS2](https://github.com/daniilrobnikov/vits2). Thanks for their awesome work!
+
+
+# run tts.py in ubuntu
+PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True ./.venv/bin/python tts.py

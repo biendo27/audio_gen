@@ -68,6 +68,8 @@ if not os.path.exists(CONVERTER_CKPT):
 # -----------------------------
 print("[INFO] Loading ToneColorConverter (config then ckpt)...")
 tone_color_converter = ToneColorConverter(CONVERTER_CONFIG, device=device)
+# Disable watermark to save GPU memory unless explicitly needed.
+tone_color_converter.watermark_model = None
 tone_color_converter.load_ckpt(CONVERTER_CKPT)
 print("[INFO] ToneColorConverter loaded.")
 
@@ -231,6 +233,8 @@ for meta in inputs_to_process:
             print(f"   [INFO] Audio duration: {audio_duration if audio_duration else 'unknown'}s")
             print(f"   [INFO] RTF: {rtf:.2f}")
 
+            if device.startswith("cuda") and torch.cuda.is_available():
+                torch.cuda.empty_cache()
             try:
                 tone_color_converter.convert(
                     audio_src_path=src_path,
@@ -245,6 +249,8 @@ for meta in inputs_to_process:
                 print(f"   [ERROR] tone_color_converter.convert failed for {spk_key} on {chunk_tag}: {e}")
                 safe_remove_files([src_path, save_path], log=print)
                 break
+            if device.startswith("cuda") and torch.cuda.is_available():
+                torch.cuda.empty_cache()
 
             chunk_tmp_paths.append(src_path)
             chunk_output_paths.append(save_path)

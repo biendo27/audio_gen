@@ -3,11 +3,11 @@
 Users can edit `VOICE_STYLE_WHITELIST` to restrict which speaker styles are used.
 """
 
-MAX_CHARS_PER_CHUNK = 15_000
-"""Maximum number of characters allowed per chunk when splitting long input text."""
+MAX_CHARS_PER_CHUNK = 2_000
+"""Upper bound for chunk length; keeps individual audio segments manageable on GPU."""
 
-TARGET_CHARS_PER_CHUNK = 4_000
-"""Preferred chunk size. Actual chunks stay at or under this value when possible."""
+TARGET_CHARS_PER_CHUNK = 1_200
+"""Preferred chunk size to balance throughput and memory footprint."""
 
 AVAILABLE_VOICE_STYLES = [
     "EN-AU",

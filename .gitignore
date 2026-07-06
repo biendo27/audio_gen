@@ -8,6 +8,7 @@ checkpoints_v2
 trash
 examples*
 .env
+.venv
 build
 *.egg-info/
 *.zip
